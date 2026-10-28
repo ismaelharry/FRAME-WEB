@@ -12,8 +12,12 @@ const server = app.listen(ctx.cfg.port, () => {
   console.log(`  Pagos: ${ctx.payments.provider === 'stripe' ? `Stripe${ctx.payments.testMode ? ' (modo test)' : ''}` : ctx.payments.provider === 'test' ? 'pasarela de PRUEBA local (no cobra)' : 'desactivados'}`);
   console.log(`  Correo: ${ctx.mail.configured ? 'SMTP configurado' : 'modo prueba (no se envía; bandeja en /admin/correos)'}`);
   if (ctx.seeded.seeded) {
-    console.log('\n  Base de datos creada con datos de demostración. Accesos al panel /admin:');
-    for (const c of ctx.seeded.credentials) console.log(`   · ${c.role.padEnd(5)} ${c.email} / ${c.password}`);
+    console.log(`\n  Base de datos creada con el inventario y las tarifas iniciales (editables en el panel). Accesos a /admin:`);
+    for (const c of ctx.seeded.credentials) {
+      // Una contraseña indicada en ADMIN_PASSWORD no se repite en el registro.
+      const shown = cfg.adminPassword && c.password === cfg.adminPassword ? '(la de ADMIN_PASSWORD)' : c.password;
+      console.log(`   · ${c.role.padEnd(5)} ${c.email} / ${shown}${cfg.isProd ? '  · se pedirá cambiarla al entrar' : ''}`);
+    }
   }
   console.log('');
 });

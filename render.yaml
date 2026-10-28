@@ -1,0 +1,30 @@
+# Despliegue de DEMOSTRACIÓN en Render (render.com → New → Blueprint).
+# Usa la pasarela de pago simulada y la bandeja de pruebas: no cobra ni envía correos.
+# Para la web real: quita ALLOW_TEST_GATEWAY/DEMO_MAILBOX y añade Stripe y SMTP (ver docs/PENDIENTES.md).
+services:
+  - type: web
+    name: frame-web
+    runtime: docker
+    plan: starter            # necesario para el disco persistente
+    healthCheckPath: /healthz
+    disk:
+      name: datos
+      mountPath: /app/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_SECRET
+        generateValue: true
+      - key: TRUST_PROXY
+        value: "1"
+      - key: BASE_URL
+        sync: false          # p. ej. https://frame-web.onrender.com
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ALLOW_TEST_GATEWAY
+        value: "true"
+      - key: DEMO_MAILBOX
+        value: "true"

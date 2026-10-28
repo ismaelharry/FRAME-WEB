@@ -1,0 +1,10 @@
+node_modules
+data
+uploads
+.env
+.git
+tests
+scripts
+docs
+e2e-capturas
+*.log
