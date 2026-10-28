@@ -37,7 +37,6 @@ export function createMail(ctx) {
 }
 
 // --------------------------------------------------------------------------- plantillas
-const BRAND = '#B23A12';
 
 export function layoutEmail({ lang, title, intro, rows = [], blocks = [], cta, footerNote }) {
   const es = lang !== 'en';
@@ -46,7 +45,7 @@ export function layoutEmail({ lang, title, intro, rows = [], blocks = [], cta, f
   const html = `<!doctype html><html lang="${lang}"><body style="margin:0;background:#F4F1EA;font-family:Helvetica,Arial,sans-serif">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F4F1EA;padding:32px 12px"><tr><td align="center">
 <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#FFFFFF;border:1px solid #D9D3C7">
-<tr><td style="padding:28px 32px 8px;font-size:22px;letter-spacing:.32em;font-weight:700;color:#161514">FRAME<span style="color:${BRAND}">.</span></td></tr>
+<tr><td style="padding:28px 32px 8px;color:#161514"><div style="font-size:22px;letter-spacing:.3em;font-weight:700;line-height:1">FRAME</div><div style="font-size:9px;letter-spacing:.16em;line-height:1.5;margin-top:6px">ESTUDIO DE CONTENIDO<br>Y COWORKING</div></td></tr>
 <tr><td style="padding:8px 32px 0"><h1 style="font-size:22px;line-height:1.25;margin:0 0 12px;color:#161514;font-weight:600">${esc(title)}</h1>
 <p style="font-size:15px;line-height:1.55;color:#161514;margin:0 0 18px">${esc(intro)}</p>
 ${rows.length ? `<table role="presentation" width="100%" style="border-top:1px solid #D9D3C7;border-bottom:1px solid #D9D3C7;margin:0 0 18px">${rowsHtml}</table>` : ''}

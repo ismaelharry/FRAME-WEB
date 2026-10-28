@@ -64,8 +64,11 @@ export function conditionsFor(ctx, { product, resource, usage, mode, lang = 'es'
   const es = lang !== 'en';
   const lines = [];
   if (usage === 'plan_purchase') {
-    lines.push(es ? 'Plan mensual sin permanencia: se renueva automáticamente cada mes hasta que solicites la baja.'
-      : 'Monthly plan with no minimum stay: it renews automatically every month until you cancel.');
+    const months = ctx.settings.get('plans').commitment_months?.[product?.plan_type];
+    if (months === 0) lines.push(es ? 'Plan mensual sin permanencia: se renueva cada mes hasta que solicites la baja.' : 'Monthly plan with no minimum stay: it renews every month until you cancel.');
+    else if (months > 0) lines.push(es ? `Permanencia mínima de ${months} meses; después se renueva mes a mes.` : `Minimum stay of ${months} months; then it renews month by month.`);
+    else lines.push(es ? 'Plan mensual renovable. FRAME te confirmará las condiciones de permanencia antes del alta.' : 'Monthly renewable plan. FRAME will confirm any minimum stay before you sign up.');
+    lines.push(es ? 'Antes de cada renovación te enviamos el enlace de pago de la siguiente mensualidad; si no se paga, el plan finaliza al acabar el periodo.' : 'Before each renewal we send you the payment link for the next month; if it is not paid, the plan ends at the end of the period.');
     lines.push(p.plan_cancel_notice_days > 0
       ? (es ? `La baja debe solicitarse con ${p.plan_cancel_notice_days} días de antelación a la renovación.` : `Cancellation must be requested ${p.plan_cancel_notice_days} days before renewal.`)
       : (es ? 'Puedes darte de baja en cualquier momento antes de la siguiente renovación; el mes en curso no se reembolsa.' : 'You can cancel at any time before the next renewal; the current month is not refunded.'));
@@ -100,6 +103,10 @@ export function conditionsFor(ctx, { product, resource, usage, mode, lang = 'es'
   if (mode === 'request') {
     lines.push(es ? `Es una solicitud: no se realiza ningún cargo. Mantenemos el hueco reservado hasta ${p.request_hold_hours} h mientras te confirmamos precio final y condiciones.`
       : `This is a request: nothing is charged. We hold the slot for up to ${p.request_hold_hours} h while we confirm the final price and conditions.`);
+  }
+  if (mode === 'pay' || mode === 'request') {
+    lines.push(es ? 'Si contratas como consumidor y el servicio se presta dentro de los 14 días siguientes, solicitas expresamente que se preste en la fecha elegida; si desistes antes, abonarás la parte ya prestada y, una vez prestado por completo, no podrás desistir.'
+      : 'If you buy as a consumer and the service takes place within the next 14 days, you expressly request it to be provided on the chosen date; if you withdraw earlier you pay for the part already provided, and once fully provided you can no longer withdraw.');
   }
   if (mode === 'pay') {
     lines.push(es ? `El pago se realiza en la pasarela segura. Reservamos el hueco ${p.payment_hold_minutes} minutos mientras completas el pago; si no se completa, se libera.`

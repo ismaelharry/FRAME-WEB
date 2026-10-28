@@ -61,6 +61,9 @@ export const DEFAULT_SETTINGS = {
   },
   plans: {
     max_flex_members: 40,       // límite de altas de mesa flexible (el uso diario se controla aparte)
+    // Permanencia mínima en meses. 0 = sin permanencia (documentado para la mesa flexible).
+    // null = pendiente de confirmar por FRAME.
+    commitment_months: { flex: 0, fixed: 0, virtual: 0 }, // «sin permanencia» en todos los planes
   },
   analytics: {
     provider: 'none',           // 'plausible' | 'ga4' | 'none' (solo se carga con consentimiento)

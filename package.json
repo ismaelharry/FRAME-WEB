@@ -12,7 +12,7 @@
     "dev": "node --disable-warning=ExperimentalWarning --watch src/server.js",
     "seed": "node --disable-warning=ExperimentalWarning src/db/seed-cli.js",
     "reset": "node --disable-warning=ExperimentalWarning src/db/seed-cli.js --reset",
-    "test": "node --disable-warning=ExperimentalWarning --test --test-concurrency=1 tests/",
+    "test": "node --disable-warning=ExperimentalWarning --test --test-concurrency=1 \"tests/*.test.js\"",
     "render:images": "node scripts/render-images.mjs"
   },
   "dependencies": {

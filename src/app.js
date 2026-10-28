@@ -29,6 +29,12 @@ export const ASSET_VERSION = String(Date.now()).slice(-8);
 
 export function createContext(overrides = {}) {
   const cfg = loadConfig(overrides);
+  // En desarrollo, sin BASE_URL, los enlaces usan el origen de la petición (útil en
+  // Codespaces o al abrir la web desde otro dispositivo de la red local).
+  if (!process.env.BASE_URL && !cfg.isProd && !overrides.baseUrl) {
+    const fallback = cfg.baseUrl;
+    Object.defineProperty(cfg, 'baseUrl', { get: () => requestStore.getStore()?.origin || fallback, set: () => {}, enumerable: true });
+  }
   const db = openDb(cfg.dbFile);
   const seeded = seed(db, { adminEmail: cfg.adminEmail, adminPassword: cfg.adminPassword, isProd: cfg.isProd });
   const ctx = { cfg, db, clockOffset: 0, seeded };
@@ -78,7 +84,11 @@ export function createApp(ctx) {
       }
     }
     req.viewerKey = viewerKey;
-    requestStore.run({ viewerKey }, next);
+    const host = (cfg.trustProxy || !cfg.isProd) ? (req.get('x-forwarded-host') || req.get('host')) : req.get('host');
+    const rawProto = (cfg.trustProxy || !cfg.isProd) ? String(req.get('x-forwarded-proto') || req.protocol).split(',')[0].trim() : req.protocol;
+    const proto = rawProto === 'https' ? 'https' : 'http';
+    const origin = host && /^[a-z0-9.:\[\]-]+$/i.test(host) ? `${proto}://${host}` : null;
+    requestStore.run({ viewerKey, origin }, next);
   });
   app.use(securityHeaders(cfg, () => ctx.settings.get('analytics')));
   app.use(csrfMiddleware(cfg));

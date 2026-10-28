@@ -22,6 +22,12 @@ export function apiRoutes(app, ctx) {
   };
   const langOf = (req) => (req.body?.lang === 'en' || req.query?.lang === 'en' ? 'en' : 'es');
 
+  // Token CSRF para clientes JavaScript del mismo origen (no se expone a otros sitios: sin CORS).
+  app.get('/api/csrf', (req, res) => {
+    res.set('Cache-Control', 'no-store');
+    res.json({ csrf: res.locals.csrfPublic });
+  });
+
   // ------------------------------------------------------------------ catálogo
   app.get('/api/catalog', limit('read', 240, 60_000), (req, res) => {
     const lang = langOf(req);

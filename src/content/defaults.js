@@ -52,6 +52,7 @@ export function createContent(db) {
       cache = null;
     },
     reset(key) { db.run('DELETE FROM content WHERE key = ?', [key]); cache = null; },
+    remove(key, lang) { db.run('DELETE FROM content WHERE key = ? AND lang = ?', [key, lang]); cache = null; },
     overrides() { return cache || load(); },
   };
 }
