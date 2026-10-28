@@ -1,0 +1,29 @@
+{
+  "name": "frame-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FRAME · Coworking y estudio de pódcast en Torrevieja. Web pública, reservas, área de clientes y panel de administración.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch src/server.js",
+    "seed": "node --disable-warning=ExperimentalWarning src/db/seed-cli.js",
+    "reset": "node --disable-warning=ExperimentalWarning src/db/seed-cli.js --reset",
+    "test": "node --disable-warning=ExperimentalWarning --test --test-concurrency=1 tests/",
+    "render:images": "node scripts/render-images.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "busboy": "^1.6.0",
+    "compression": "^1.8.2",
+    "express": "^5.3.0",
+    "nodemailer": "^10.2.1",
+    "three": "^0.186.1",
+    "zod": "^4.6.7"
+  }
+}

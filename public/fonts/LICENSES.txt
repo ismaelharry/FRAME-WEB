@@ -1,0 +1,6 @@
+Fuentes con licencia SIL Open Font License 1.1:
+- Archivo (Omnibus-Type) — https://github.com/Omnibus-Type/Archivo
+- Instrument Serif (Instrument) — https://github.com/Instrument/instrument-serif
+- IBM Plex Mono (IBM) — https://github.com/IBM/plex
+
+Copiadas desde los paquetes @fontsource del proyecto.
