@@ -89,7 +89,8 @@ fieldset.apanel legend { font-weight: 600; font-size: 15px; padding: 0 6px; }
 .afilters input[type=search] { max-width: 320px; }
 .afilters input, .afilters select { width: auto !important; }
 .afilters label { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; }
-.afilters__title { margin-left: 8px; font-weight: 600; text-transform: capitalize; }
+.afilters__title { margin-left: 8px; font-weight: 600; }
+.afilters__title::first-letter { text-transform: uppercase; }
 .adetails { margin: 0 0 12px; }
 .adetails > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 .adetails[open] > summary { margin-bottom: 10px; }
@@ -152,7 +153,8 @@ a.akpi:hover { border-color: var(--ink); color: inherit; }
 
 /* ------------------------------------------------------------ calendario */
 .aweek { list-style: none; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; padding: 0; margin: 0 0 16px; }
-.aweek a { display: flex; flex-direction: column; align-items: center; padding: 8px 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); text-decoration: none; font-size: 13px; text-transform: capitalize; }
+.aweek a { display: flex; flex-direction: column; align-items: center; padding: 8px 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); text-decoration: none; font-size: 13px; }
+.aweek a span::first-letter { text-transform: uppercase; }
 .aweek a[aria-current="date"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .aweek strong { font-family: var(--f-mono); font-size: 12px; }
 .cal { overflow-x: auto; }

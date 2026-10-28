@@ -587,7 +587,8 @@ a:hover .media img { transform: scale(1.025); }
 @media (max-width: 760px) { .when { grid-template-columns: 1fr; } }
 .cal { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 14px; }
 .cal__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.cal__title { text-transform: capitalize; font-weight: 550; }
+.cal__title { font-weight: 550; }
+.cal__title::first-letter { text-transform: uppercase; }
 .cal__nav { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: none; cursor: pointer; }
 .cal__nav:disabled { opacity: .3; cursor: default; }
 .cal__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }

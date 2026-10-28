@@ -8,3 +8,4 @@ uploads/*
 *.log
 /tmp/
 coverage/
+e2e-capturas/

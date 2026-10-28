@@ -30,7 +30,7 @@ export function renderTestGateway(ctx, req, res, { order, last, flash }) {
     <ul class="list-dash small">${items.map((i) => html`<li><span style="flex:1">${i.name}</span><span class="tabular">${money(i.total_cents, 'es', { decimals: 2 })}</span></li>`)}</ul>
     <p class="small muted mt-2">Base ${money(order.subtotal_cents, 'es', { decimals: 2 })} · Impuestos ${(order.tax_rate_bp / 100).toLocaleString('es-ES')} % ${money(order.tax_cents, 'es', { decimals: 2 })}</p>
   </div>
-  <div class="grid mt-4" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+  <div class="grid mt-4" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:10px">
     ${order.status === 'pending' ? html`${action('pagar', 'Simular pago correcto', 'rec')}${action('rechazar', 'Simular pago rechazado', '')}${action('caducar', 'Simular sesión caducada', 'ghost')}${action('volver', 'Volver sin pagar', 'ghost')}` : ''}
     ${last ? action('repetir', 'Reenviar la última notificación', 'ghost') : ''}
   </div>

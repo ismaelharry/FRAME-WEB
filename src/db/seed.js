@@ -269,7 +269,8 @@ export function seed(db, { adminEmail, adminPassword, isProd } = {}) {
       users.push(['admin@frame.local', 'Administración', pwd, 'admin']);
     }
     for (const [email, name, pwd, role] of users) {
-      db.run('INSERT INTO users (email, name, password_hash, role, created_at) VALUES (?,?,?,?,?)', [email.toLowerCase(), name, hashPassword(pwd), role, now]);
+      // En producción la primera contraseña debe cambiarse al entrar por primera vez.
+      db.run('INSERT INTO users (email, name, password_hash, role, must_change_password, created_at) VALUES (?,?,?,?,?,?)', [email.toLowerCase(), name, hashPassword(pwd), role, isProd ? 1 : 0, now]);
       result.credentials.push({ email, password: pwd, role });
     }
     db.run("INSERT INTO settings (key, value, updated_at) VALUES ('_seed', ?, ?)", [String(SEED_VERSION), now]);

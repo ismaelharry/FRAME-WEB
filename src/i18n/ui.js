@@ -88,7 +88,7 @@ export const UI = {
     booking: {
       steps: ['Servicio', 'Fecha y hora', 'Tus datos', 'Revisión'],
       choose: 'Elige qué quieres reservar', date: 'Fecha', time: 'Hora de inicio', duration: 'Duración', people: 'Personas',
-      check: 'Ver disponibilidad', free: 'libres', full: 'Completo', closed: 'Cerrado', available: 'Disponible', unavailable: 'No disponible',
+      check: 'Ver disponibilidad', free: 'libres', full: 'Completo', closed: 'Cerrado', available: 'Disponible', unavailable: 'No disponible', available_n: '{n} disponibles', available_1: '1 disponible',
       next: 'Continuar', back: 'Atrás', summary: 'Resumen', total: 'Total', base: 'Base', tax: 'Impuestos',
       indicative: 'Precio orientativo sin IVA', quote: 'Precio bajo presupuesto', free_price: 'Sin coste', included: 'Incluido',
       send_request: 'Enviar solicitud', confirm_free: 'Confirmar reserva', pay: 'Pagar {amount} ahora', pay_note: 'Pedido con obligación de pago.',
@@ -190,7 +190,7 @@ export const UI = {
     booking: {
       steps: ['Service', 'Date & time', 'Your details', 'Review'],
       choose: 'Choose what you want to book', date: 'Date', time: 'Start time', duration: 'Duration', people: 'People',
-      check: 'Check availability', free: 'free', full: 'Full', closed: 'Closed', available: 'Available', unavailable: 'Unavailable',
+      check: 'Check availability', free: 'free', full: 'Full', closed: 'Closed', available: 'Available', unavailable: 'Unavailable', available_n: '{n} available', available_1: '1 available',
       next: 'Continue', back: 'Back', summary: 'Summary', total: 'Total', base: 'Base', tax: 'Tax',
       indicative: 'Indicative price before VAT', quote: 'Price on request', free_price: 'Free', included: 'Included',
       send_request: 'Send request', confirm_free: 'Confirm booking', pay: 'Pay {amount} now', pay_note: 'Order with obligation to pay.',

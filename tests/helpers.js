@@ -66,3 +66,36 @@ export const person = (n = 1) => ({ name: `Cliente ${n}`, email: `cliente${n}@ex
 export function enableSales(ctx, rateBp = 2100) {
   ctx.settings.set('commerce', { sales_enabled: true, tax_configured: true, tax_rate_bp: rateBp, prices_confirmed: true, conditions_confirmed: true });
 }
+
+// Inicia sesión de cliente con el enlace mágico (se lee de la bandeja de salida en modo prueba).
+export async function loginCustomer(app, client, email) {
+  const r = await client.post('/api/account/login', { email, lang: 'es' });
+  if (r.status !== 200) throw new Error(`login ${r.status} ${r.text}`);
+  const mail = app.ctx.db.get("SELECT body_text FROM outbox WHERE to_email = ? AND kind = 'login.link' ORDER BY id DESC LIMIT 1", [email]);
+  const token = mail.body_text.match(/entrar\?token=([A-Za-z0-9_-]+)/)[1];
+  const s = await client.get(`/cuenta/entrar?token=${token}`);
+  if (s.status !== 303) throw new Error(`entrar ${s.status}`);
+  return client;
+}
+
+// Sesión de administración (o recepción) con su token CSRF.
+export async function loginAdmin(app, client, role = 'admin') {
+  const [email, password] = role === 'admin' ? ['admin@frame.test', 'frame-admin-demo'] : ['recepcion@frame.test', 'frame-staff-demo'];
+  const page = await client.get('/admin/entrar');
+  const csrf = page.text.match(/name="_csrf" value="([^"]+)"/)[1];
+  const r = await client.req('POST', '/admin/entrar', { form: { _csrf: csrf, email, password } });
+  if (r.status !== 303) throw new Error(`admin login ${r.status}`);
+  const dash = await client.get('/admin');
+  client.adminCsrf = dash.text.match(/name="_csrf" value="([^"]+)"/)[1];
+  return client;
+}
+
+// Notificación firmada de la pasarela de prueba, procesada igual que un webhook.
+export async function gatewayEvent(app, order, type, data = {}, id) {
+  const gw = app.ctx.payments.impl;
+  const evt = gw.buildEvent(type, { order_ref: order.ref, session_id: order.provider_session_id, ...data }, id);
+  return fetch(`${app.base}/webhooks/test`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-frame-signature': evt.signature }, body: evt.payload }).then(async (r) => ({ status: r.status, json: await r.json() }));
+}
+
+// Desactiva la limitación de peticiones (solo para pruebas de concurrencia con muchas peticiones).
+export const noRateLimit = (app) => { app.ctx.limiter.take = () => true; };

@@ -219,7 +219,7 @@ async function loadSlots() {
     const r = await api('GET', `/api/availability/slots?${q}&date=${state.date}&duration=${state.duration}&people=${state.people}`);
     if (!r.slots.length) { out.innerHTML = `<p class="day-info is-ko">${esc(r.reason ? UI.errors[r.reason] || UI.booking.none_slots : UI.booking.none_slots)}</p>`; state.time = null; updateNext(); return; }
     const free = r.slots.filter((x) => x.available).length;
-    out.innerHTML = `<p class="field__label" id="slots-l">${esc(UI.booking.time)} <span class="muted small">· ${free} ${esc(UI.booking.available.toLowerCase())}</span></p>
+    out.innerHTML = `<p class="field__label" id="slots-l">${esc(UI.booking.time)} <span class="muted small">· ${esc(free === 1 ? UI.booking.available_1 : fmtStr(UI.booking.available_n, { n: free }))}</span></p>
       <div class="slots" role="group" aria-labelledby="slots-l">${r.slots.map((x) => `<button type="button" class="chip" data-time="${x.time}" ${x.available ? '' : 'disabled'} aria-pressed="${x.time === state.time}" aria-label="${x.time}–${x.end} ${esc(x.available ? UI.booking.available : UI.booking.unavailable)}">${x.time}</button>`).join('')}</div>`;
     if (state.time && !r.slots.find((x) => x.time === state.time && x.available)) state.time = null;
     $$('[data-time]', out).forEach((b) => b.addEventListener('click', () => {
