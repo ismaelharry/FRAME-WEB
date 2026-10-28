@@ -40,14 +40,14 @@ export function renderBook(ctx, req, res) {
     </div>
   </div>
   <div class="viewer" data-viewer data-layout="${JSON.stringify(L)}" aria-label="${es ? 'Maqueta 3D interactiva del local' : 'Interactive 3D model of the venue'}">
-    <img class="viewer__fallback" src="/img/renders/plano.webp" alt="${es ? 'Maqueta de la distribución de demostración de FRAME' : 'Model of FRAME’s demo layout'}" width="1800" height="1350" fetchpriority="high">
+    <img class="viewer__fallback" src="/img/renders/plano.webp" alt="${es ? 'Maqueta conceptual de FRAME con el reparto de superficies del local' : 'Conceptual model of FRAME with the floor-area split'}" width="1800" height="1350" fetchpriority="high">
     <div class="viewer__ui">
       <span class="viewer__hint mono" data-viewer-hint>${es ? 'Arrastra para girar · toca una zona' : 'Drag to rotate · tap a zone'}</span>
       <div class="viewer__actions">
         <button type="button" class="chip" data-360 hidden>${es ? 'Vista 360° de la zona' : '360° view of the zone'}</button>
         <button type="button" class="chip" data-exit360 hidden>${es ? 'Volver a la maqueta' : 'Back to the model'}</button>
       </div>
-      <span class="viewer__note mono">${es ? 'Distribución de demostración · pendiente del plano definitivo' : 'Demo layout · final floor plan pending'}</span>
+      <span class="viewer__note mono">${es ? 'Maqueta conceptual · reparto de superficies de FRAME, sin planos definitivos' : 'Conceptual model · FRAME floor-area split, no final plans'}</span>
     </div>
   </div>
 </section>

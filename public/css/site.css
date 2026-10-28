@@ -68,6 +68,7 @@ h1, h2, h3, h4 { margin: 0; font-weight: 450; line-height: 1.05; letter-spacing:
 button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
 ::selection { background: var(--rec); color: #fff; }
+[hidden] { display: none !important; }
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .skip-link { position: absolute; left: 12px; top: -60px; z-index: 300; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: var(--pill); text-decoration: none; }
 .skip-link:focus { top: 12px; color: var(--paper); }

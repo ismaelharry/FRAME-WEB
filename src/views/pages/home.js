@@ -202,8 +202,8 @@ export function renderHome(ctx, req, res) {
     <div class="reveal">
       <figure class="media frame frame--ink" style="margin:0;aspect-ratio:4/3;background:var(--paper-2)">
         <span class="frame__c"></span>
-        <img src="/img/renders/plano.webp" alt="${es ? 'Maqueta axonométrica de la distribución de demostración de FRAME' : 'Axonometric model of FRAME’s demo layout'}" loading="lazy" decoding="async">
-        <figcaption class="media__note">${es ? 'Maqueta · distribución de demostración' : 'Model · demo layout'}</figcaption>
+        <img src="/img/renders/plano.webp" alt="${es ? 'Maqueta axonométrica conceptual de FRAME con el reparto de superficies del local' : 'Conceptual axonometric model of FRAME with the floor-area split'}" loading="lazy" decoding="async">
+        <figcaption class="media__note">${es ? 'Maqueta conceptual · 400 m² según el reparto de FRAME' : 'Conceptual model · 400 m² following FRAME’s split'}</figcaption>
       </figure>
       <div class="dim dim--ticks mt-1" aria-hidden="true"><span>${b.surface_m2} m² · ${es ? 'una sola sede' : 'one location'}</span></div>
     </div>
